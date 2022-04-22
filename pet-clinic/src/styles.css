@@ -101,6 +101,28 @@
     background-color: #135c0a;
 }
 
+
+/* Footer */
+
+footer ul li a{
+    color:#fff
+}
+footer{
+    background:#232324;
+    z-index:1;
+    position:relative;
+    text-align:center
+}
+footer li a{
+    color:#313131;
+    font-weight:500
+}
+footer ul li{
+    display:inline-block;
+    font-size:14px;
+    padding:10px 20px
+}
+
 @media (max-width: 1300px) and (min-width: 1050px) {
     .logo1{
         display: none;

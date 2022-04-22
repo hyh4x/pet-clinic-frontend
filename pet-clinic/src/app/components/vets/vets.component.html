@@ -1,5 +1,21 @@
 <div class="main-content">
     <div class="section-content section-content-p30">
-        <p>Welcome to our Vets Component</p>
+        <h2>Veterinarians</h2>
+        <table class="table table-bordered">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Specialties</th>
+            </tr>
+            <tr *ngFor="let tempVet of vets">
+                <td>{{tempVet.firstName}}</td>
+                <td>{{tempVet.lastName}}</td>
+                <td>
+                    <span *ngFor="let tempSpecialty of tempVet.specialties; let isLast = last">
+                        {{tempSpecialty.specialty}}{{isLast?'':','}}
+                    </span>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
