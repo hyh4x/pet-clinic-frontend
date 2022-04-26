@@ -1,28 +1,28 @@
 <div class="main-content">
     <div class="section-content section-content-p30">
-        <h2>Pet Owners</h2>
+        <div class="actions">
+            <!-- Search -->
+            <input #SearchArea type="text" placeholder="Search owners" (keyup.enter)="doSearch(SearchArea.value)">
+            <button class="btn-submit" (click)="doSearch(SearchArea.value)">Search</button>
+            <!-- Add New Owner -->
+            <button class="btn-submit" routerLink="/add-owner">Add Owner</button>
+        </div>
         <table class="table table-bordered">
             <tr>
+                <th></th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email</th>
-                <th>City</th>
-                <th>Address</th>
-                <th>Pets</th>
             </tr>
             <tr *ngFor="let tempOwner of owners">
+                <td>
+                    <button routerLink="/owners/{{tempOwner.id}}" class="btn btn-sm btn-outline-success">info</button>
+                </td>
                 <td>{{tempOwner.firstName}}</td>
                 <td>{{tempOwner.lastName}}</td>
                 <td>{{tempOwner.phoneNumber}}</td>
                 <td>{{tempOwner.email}}</td>
-                <td>{{tempOwner.city}}</td>
-                <td>{{tempOwner.address}}</td>
-                <td>
-                    <span *ngFor="let tempPet of tempOwner.pets; let isLast = last">
-                        {{tempPet.name}}{{isLast?'':','}}
-                    </span>
-                </td>
             </tr>
         </table>
     </div>
