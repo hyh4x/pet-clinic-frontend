@@ -1,0 +1,176 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <h2>New Pet Owner</h2>
+            <form class="form-area" [formGroup]="ownerFormGroup" (ngSubmit)="onSubmit()">
+                <!-- FORM GROUP: PERSONAL-->
+                <div formGroupName="personal">
+                    <h3>Personal</h3>
+                    <div class="row">
+                        <div class="col-md-2"><label>First Name</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input type="text" formControlName="firstName">
+                            </div>
+                            <div *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)" class="alert alert-danger h6">
+                                <div *ngIf="firstName.errors.required">
+                                    First Name is required
+                                </div>
+                                <div *ngIf="firstName.errors.minlength">
+                                    First Name must be at least 2 characters
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Last Name</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input type="text" formControlName="lastName">
+                            </div>
+                            <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)" class="alert alert-danger h6">
+                                <div *ngIf="lastName.errors.required">
+                                    Last Name is required
+                                </div>
+                                <div *ngIf="lastName.errors.minlength">
+                                    Last Name must be at least 2 characters
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Phone Number</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input type="text" formControlName="phoneNumber">
+                            </div>
+                            <div *ngIf="phoneNumber.invalid && (phoneNumber.touched || phoneNumber.dirty)" class="alert alert-danger h6">
+                                <div *ngIf="phoneNumber.errors.required">
+                                    Phone Number is required
+                                </div>
+                                <div *ngIf="phoneNumber.errors.pattern">
+                                    Phone Number must be 10 digits
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Email</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input type="text" formControlName="email">
+                            </div>
+                            <div *ngIf="email.invalid && (email.touched || email.dirty)" class="alert alert-danger h6">
+                                <div *ngIf="email.errors.required">
+                                    Email is required
+                                </div>
+                                <div *ngIf="email.errors.pattern">
+                                    Invalid Email Format
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>City</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input type="text" formControlName="city">
+                            </div>
+                            <div *ngIf="city.invalid && (city.touched || city.dirty)" class="alert alert-danger h6">
+                                <div *ngIf="city.errors.required">
+                                    City is required
+                                </div>
+                                <div *ngIf="city.errors.minlength">
+                                    City must be at least 2 characters
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Address</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input type="text" formControlName="address">
+                            </div>
+                            <div *ngIf="address.invalid && (address.touched || address.dirty)" class="alert alert-danger h6">
+                                <div *ngIf="address.errors.required">
+                                    Address is required
+                                </div>
+                                <div *ngIf="address.errors.minlength">
+                                    Address must be at least 2 characters
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FORM ARRAY: PETS-->
+                <ng-container formArrayName="pets">
+                    <ng-container *ngFor="let petForm of pets.controls; let i=index">
+                        
+                        <div class="d-flex">
+                            <h3>Pet</h3>
+                            <button type="button" (click)="deletePet(i)" class="btn btn-danger btn-sm mx-3">Delete</button>
+                        </div>
+                        <div [formGroup]="petForm">
+                            <div class="row">
+                                <div class="col-md-2"><label>Name</label></div>
+                                <div class="col-md-9">
+                                    <div class="input-space">
+                                        <input type="text" formControlName="name">
+                                    </div>
+                                    <div *ngIf="petForm.get('name').invalid && (petForm.get('name').touched || petForm.get('name').dirty)" class="alert alert-danger h6">
+                                        <div *ngIf="petForm.get('name').errors.required">
+                                            Pet Name is required
+                                        </div>
+                                        <div *ngIf="petForm.get('name').errors.minlength">
+                                            Pet Name must be at least 2 characters
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><label>Birth Date</label></div>
+                                <div class="col-md-9">
+                                    <div class="input-space">
+                                        <input type="text" formControlName="birthDate" placeholder="dd.mm.yyyy">
+                                    </div>
+                                    <div *ngIf="petForm.get('birthDate').invalid && (petForm.get('birthDate').dirty || petForm.get('birthDate').touched)" class="alert alert-danger h6">
+                                        <div *ngIf="petForm.get('birthDate').errors.required">
+                                            Birth Date is required
+                                        </div>
+                                        <div *ngIf="petForm.get('birthDate').errors.pattern || petForm.get('birthDate').errors.validBirthDate">
+                                            Invalid Birth Date
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><label>Type</label></div>
+                                <div class="col-md-9">
+                                    <div class="input-space">
+                                        <select formControlName="type">
+                                            <option *ngFor="let type of types" [ngValue]="type">
+                                                {{type.type}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="petForm.get('type').invalid && (petForm.get('type').dirty || petForm.get('type').touched)" class="alert alert-danger h6">
+                                        <div *ngIf="petForm.get('type').errors.required">
+                                            Type is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <button type="button" (click)="addPet(); $event.target.blur();" class="btn btn-success">Add New Pet</button>
+
+                <!-- SUBMIT -->
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-lg btn-success">Submit</button>   
+                </div>             
+            </form>
+        </div>
+    </div>
+</div>
