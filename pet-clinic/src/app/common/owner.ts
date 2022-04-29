@@ -8,5 +8,5 @@ export class Owner {
     phoneNumber: string;
     city: string;
     address: string;
-    pets: Pet[];
+    pets: Pet[] = [];
 }

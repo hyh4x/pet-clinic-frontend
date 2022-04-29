@@ -9,7 +9,9 @@ import { HomeComponent } from './components/home/home.component';
 import { VetsComponent } from './components/vets/vets.component';
 import { AddOwnerComponent } from './components/add-owner/add-owner.component';
 import { OwnerInfoComponent } from './components/owner-info/owner-info.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditableComponent } from './components/misc/editable/editable.component';
+import { EditableSelectComponent } from './components/misc/editable-select/editable-select.component';
 
 
 const routes: Routes = [
@@ -31,12 +33,15 @@ const routes: Routes = [
     VetsComponent,
     AddOwnerComponent,
     OwnerInfoComponent,
+    EditableComponent,
+    EditableSelectComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

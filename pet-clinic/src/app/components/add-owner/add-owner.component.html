@@ -6,9 +6,9 @@
                 <!-- FORM GROUP: PERSONAL-->
                 <div formGroupName="personal">
                     <h3>Personal</h3>
-                    <div class="row">
-                        <div class="col-md-2"><label>First Name</label></div>
-                        <div class="col-md-9">
+                    <div class="row mb-3">
+                        <div class="col-md-3"><label>First Name</label></div>
+                        <div class="col-md-8">
                             <div class="input-space">
                                 <input type="text" formControlName="firstName">
                             </div>
@@ -22,9 +22,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2"><label>Last Name</label></div>
-                        <div class="col-md-9">
+                    <div class="row mb-3">
+                        <div class="col-md-3"><label>Last Name</label></div>
+                        <div class="col-md-8">
                             <div class="input-space">
                                 <input type="text" formControlName="lastName">
                             </div>
@@ -38,9 +38,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2"><label>Phone Number</label></div>
-                        <div class="col-md-9">
+                    <div class="row mb-3">
+                        <div class="col-md-3"><label>Phone Number</label></div>
+                        <div class="col-md-8">
                             <div class="input-space">
                                 <input type="text" formControlName="phoneNumber">
                             </div>
@@ -54,9 +54,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2"><label>Email</label></div>
-                        <div class="col-md-9">
+                    <div class="row mb-3">
+                        <div class="col-md-3"><label>Email</label></div>
+                        <div class="col-md-8">
                             <div class="input-space">
                                 <input type="text" formControlName="email">
                             </div>
@@ -70,9 +70,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2"><label>City</label></div>
-                        <div class="col-md-9">
+                    <div class="row mb-3">
+                        <div class="col-md-3"><label>City</label></div>
+                        <div class="col-md-8">
                             <div class="input-space">
                                 <input type="text" formControlName="city">
                             </div>
@@ -86,9 +86,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2"><label>Address</label></div>
-                        <div class="col-md-9">
+                    <div class="row mb-3">
+                        <div class="col-md-3"><label>Address</label></div>
+                        <div class="col-md-8">
                             <div class="input-space">
                                 <input type="text" formControlName="address">
                             </div>
@@ -112,9 +112,9 @@
                             <button type="button" (click)="deletePet(i)" class="btn btn-danger btn-sm mx-3">Delete</button>
                         </div>
                         <div [formGroup]="petForm">
-                            <div class="row">
-                                <div class="col-md-2"><label>Name</label></div>
-                                <div class="col-md-9">
+                            <div class="row mb-3">
+                                <div class="col-md-3"><label>Name</label></div>
+                                <div class="col-md-8">
                                     <div class="input-space">
                                         <input type="text" formControlName="name">
                                     </div>
@@ -128,9 +128,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-2"><label>Birth Date</label></div>
-                                <div class="col-md-9">
+                            <div class="row mb-3">
+                                <div class="col-md-3"><label>Birth Date</label></div>
+                                <div class="col-md-8">
                                     <div class="input-space">
                                         <input type="text" formControlName="birthDate" placeholder="dd.mm.yyyy">
                                     </div>
@@ -144,9 +144,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-2"><label>Type</label></div>
-                                <div class="col-md-9">
+                            <div class="row mb-3">
+                                <div class="col-md-3"><label>Type</label></div>
+                                <div class="col-md-8">
                                     <div class="input-space">
                                         <select formControlName="type">
                                             <option *ngFor="let type of types" [ngValue]="type">

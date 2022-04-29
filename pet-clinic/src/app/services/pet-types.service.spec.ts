@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AddOwnerService } from './add-owner.service';
+import { PetTypesService } from './pet-types.service';
 
-describe('AddOwnerService', () => {
-  let service: AddOwnerService;
+describe('{PetTypesService}', () => {
+  let service: PetTypesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AddOwnerService);
+    service = TestBed.inject(PetTypesService);
   });
 
   it('should be created', () => {

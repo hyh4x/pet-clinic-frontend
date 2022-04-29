@@ -1,0 +1,17 @@
+<div class="row align-items-center mb-2">
+    <div class="col-md-3">
+        <b>{{label}}</b>
+    </div>
+    <div class="col-md-6">
+        <div *ngIf="!isEditable">
+            {{value}}
+            <button type="button" (click)="edit()" class="btn btn-sm btn-success mx-2">Edit</button>
+        </div>
+        <div *ngIf="isEditable" class="input-space">
+            <input type="text" (keyup.enter)="processChanges()" [(ngModel)]="value">
+        </div>
+    </div>
+    <div *ngIf="isEditable" class="col-md-1">
+        <button type="button" (click)="processChanges()" class="btn btn-sm btn-success">Save</button>
+    </div>
+</div>

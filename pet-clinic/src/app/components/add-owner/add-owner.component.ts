@@ -3,8 +3,11 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Owner } from 'src/app/common/owner';
 import { Pet } from 'src/app/common/pet';
 import { Type } from 'src/app/common/type';
-import { AddOwnerService } from 'src/app/services/add-owner.service';
+import { PetTypesService } from 'src/app/services/pet-types.service';
+import { OwnerService } from 'src/app/services/owner.service';
 import { ValidBirthDate } from 'src/app/validators/valid-birth-date';
+import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-owner',
@@ -17,7 +20,9 @@ export class AddOwnerComponent implements OnInit {
   types: Type[] = [];
 
   constructor(private formBuilder: FormBuilder,
-              private addOwnerService: AddOwnerService) { }
+              private petTypesService: PetTypesService,
+              private ownerService: OwnerService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
@@ -56,8 +61,8 @@ export class AddOwnerComponent implements OnInit {
   }
 
   getTypes() {
-    this.addOwnerService.getTypes().subscribe(
-      data => this.types = data
+    this.petTypesService.getTypes().subscribe(
+      (data: Type[]) => this.types = data
     );
   }
 
@@ -73,18 +78,22 @@ export class AddOwnerComponent implements OnInit {
 
     for(let tempFormGroup of this.pets.controls){
       let pet: Pet = tempFormGroup.value;
-      pet.birthDate = this.parseDate(tempFormGroup.get('birthDate')?.value);
+      pet.birthDate = moment(tempFormGroup.get('birthDate')?.value,'DD/MM/YYYY').toDate();
       owner.pets.push(pet);
     }
 
     console.log(owner);
-    this.addOwnerService.sendOwner(owner).subscribe();
-  }
+    this.ownerService.postOwner(owner).subscribe(
+      {
+      next: response => {
+        alert(`Owner is added successfully`);
 
-  parseDate(birthDate: string): Date {
-    let splitString: string[] = birthDate.split('.');
-    let convertToNumbers: number[] = splitString.map(temp => +temp);
-    return new Date(convertToNumbers[2], convertToNumbers[1]-1, convertToNumbers[0]);
+        this.router.navigateByUrl('/owners');
+      },
+      error: err => {
+        alert(`There was an error: ${err.message}`);
+      }
+    });
   }
 
   get pets() {return this.ownerFormGroup.get('pets') as FormArray;}
