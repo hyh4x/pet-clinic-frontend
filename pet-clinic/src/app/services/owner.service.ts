@@ -20,7 +20,7 @@ export class OwnerService {
   }
 
   searchOwnersList(keyword: string): Observable<OwnerSlim[]> {
-    const url = `${this.baseUrl}/search/findByFirstNameContainingOrLastNameContainingAllIgnoreCase?keyword=${keyword}`;
+    const url = `${this.baseUrl}/search/findOwnersByFirstNameOrLastName?keyword=${keyword}`;
     return this.httpClient.get<OwnerSlim[]>(url);
   }
 
