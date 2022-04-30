@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditableSelectComponent } from './editable-select.component';
+import { EditableVisitRowComponent } from './editable-visit-row.component';
 
-describe('EditableSelectComponent', () => {
-  let component: EditableSelectComponent;
-  let fixture: ComponentFixture<EditableSelectComponent>;
+describe('EditableVisitRowComponent', () => {
+  let component: EditableVisitRowComponent;
+  let fixture: ComponentFixture<EditableVisitRowComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditableSelectComponent ]
+      declarations: [ EditableVisitRowComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditableSelectComponent);
+    fixture = TestBed.createComponent(EditableVisitRowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

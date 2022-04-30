@@ -1,0 +1,47 @@
+<td>
+    <div [formGroup]="parentForm">
+        <div formArrayName="pets">
+            <div [formGroupName]="PetsIndex">
+                <div formArrayName="visits">
+                    <div [formGroupName]="VisitsIndex">
+                        <div *ngIf="!isEditable">
+                            {{visitDate}}
+                        </div>
+                        <div *ngIf="isEditable" class="input-space">
+                            <input type="text" (keyup.enter)="processChanges()" formControlName="visitDate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</td>
+<td>
+    <div [formGroup]="parentForm">
+        <div formArrayName="pets">
+            <div [formGroupName]="PetsIndex">
+                <div formArrayName="visits">
+                    <div [formGroupName]="VisitsIndex">
+                        <div *ngIf="!isEditable">
+                            {{description}}
+                        </div>
+                        <div *ngIf="isEditable" class="input-space">
+                            <input type="text" (keyup.enter)="processChanges()" formControlName="description">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</td>
+<td>
+    <div *ngIf="!isEditable">
+        <button type="button" (click)="edit()" class="btn btn-sm btn-success bg-success px-2 mr-2">Edit</button>
+        <button type="button" (click)="deleteVisit()" class="btn btn-sm btn-danger bg-danger px-2 mx-2">Delete</button>
+    </div>
+    <div *ngIf="isEditable">
+        <button type="button" (click)="processChanges()" class="btn btn-sm btn-success bg-success px-2 mr-2">Save</button>
+        <button type="button" (click)="deleteVisit()" class="btn btn-sm btn-danger bg-danger px-2 mx-2">Delete</button>
+    </div>
+</td>
+                   

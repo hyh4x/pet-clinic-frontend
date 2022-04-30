@@ -10,8 +10,11 @@ import { VetsComponent } from './components/vets/vets.component';
 import { AddOwnerComponent } from './components/add-owner/add-owner.component';
 import { OwnerInfoComponent } from './components/owner-info/owner-info.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EditableComponent } from './components/misc/editable/editable.component';
-import { EditableSelectComponent } from './components/misc/editable-select/editable-select.component';
+import { EditableOwnerInputComponent } from './components/misc/editable-owner-input/editable-owner-input.component';
+import { EditablePetInputComponent } from './components/misc/editable-pet-input/editable-pet-input.component';
+import { EditablePetSelectComponent } from './components/misc/editable-pet-select/editable-pet-select.component';
+import { EditableVisitRowComponent } from './components/misc/editable-visit-row/editable-visit-row.component';
+import { PhonePipe } from './pipes/phone.pipe';
 
 
 const routes: Routes = [
@@ -33,8 +36,11 @@ const routes: Routes = [
     VetsComponent,
     AddOwnerComponent,
     OwnerInfoComponent,
-    EditableComponent,
-    EditableSelectComponent,
+    EditableOwnerInputComponent,
+    EditablePetInputComponent,
+    EditablePetSelectComponent,
+    EditableVisitRowComponent,
+    PhonePipe,
   ],
   imports: [
     BrowserModule,

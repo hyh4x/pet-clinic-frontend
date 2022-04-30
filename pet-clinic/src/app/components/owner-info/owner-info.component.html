@@ -8,94 +8,101 @@
                 <h2>Owner info</h2>
                 <div class="container-fluid">
     
-                    <app-editable
-                        [value]="owner.firstName"
-                        [label]="'First Name:'"
-                        (valueChange)="processFirstName($event)">
-                    </app-editable>
-    
-                    <app-editable
-                        [value]="owner.lastName"
-                        [label]="'Last Name:'"
-                        (valueChange)="processLastName($event)">
-                    </app-editable>
-    
-                    <app-editable
-                        [value]="owner.phoneNumber"
-                        [label]="'Phone Number:'"
-                        (valueChange)="processPhoneNumber($event)">
-                    </app-editable>
-    
-                    <app-editable
-                        [value]="owner.email"
-                        [label]="'Email:'"
-                        (valueChange)="processEmail($event)">
-                    </app-editable>
-    
-                    <app-editable
-                        [value]="owner.city"
-                        [label]="'City:'"
-                        (valueChange)="processCity($event)">
-                    </app-editable>
-    
-                    <app-editable
-                        [value]="owner.address"
-                        [label]="'Address:'"
-                        (valueChange)="processAddress($event)">
-                    </app-editable>
-                    <hr>
-                    <!-- PETS -->
-                    <div *ngIf="!owner.pets.length" class="alert alert-warning">No pet data available</div>
-                    <div *ngFor="let tempPet of owner.pets; let i = index;">
-                        <div class="d-flex">
-                            <h3>Pet</h3>
-                            <button type="button" (click)="deletePet(i)" class="btn btn-danger btn-sm mx-3">Delete</button>
-                        </div>
-                        <app-editable
-                            [value]="tempPet.name"
-                            [label]="'Name:'"
-                            (valueChange)="processPetName(tempPet, $event)">
-                        </app-editable>
-                        <app-editable
-                            [value]="getFormattedDate(tempPet.birthDate)"
-                            [label]="'Birth Date:'"
-                            (valueChange)="processPetBirthDate(tempPet, $event)">
-                        </app-editable>
-                        <app-editable-select
-                            [value]="tempPet.type.type"
-                            [options]="typeNames"
-                            [label]="'Type:'"
-                            (valueChange)="processType(tempPet,$event)">
-                        </app-editable-select>
-                        
+                    <form [formGroup]="ownerFormGroup" (ngSubmit)="onSubmit();">
+
+                        <app-editable-owner-input 
+                                [parentForm]="ownerFormGroup"
+                                controlName="firstName"
+                                label="First Name:">
+                        </app-editable-owner-input>
+
+                        <app-editable-owner-input 
+                                [parentForm]="ownerFormGroup"
+                                controlName="lastName"
+                                label="Last Name:">
+                        </app-editable-owner-input>
+
+                        <app-editable-owner-input 
+                                [parentForm]="ownerFormGroup"
+                                controlName="phoneNumber"
+                                label="Phone Number:">
+                        </app-editable-owner-input>
+
+                        <app-editable-owner-input 
+                                [parentForm]="ownerFormGroup"
+                                controlName="email"
+                                label="Email:">
+                        </app-editable-owner-input>
+
+                        <app-editable-owner-input 
+                                [parentForm]="ownerFormGroup"
+                                controlName="city"
+                                label="City:">
+                        </app-editable-owner-input>
+
+                        <app-editable-owner-input 
+                                [parentForm]="ownerFormGroup"
+                                controlName="address"
+                                label="Address:">
+                        </app-editable-owner-input>
+                        <hr>
+
+                        <!-- PETS -->
+
+                        <div *ngIf="!pets.length" class="alert alert-warning">No pet data available</div>
+                        <div *ngFor="let petControl of pets.controls; let i = index;">
+                            <div class="d-flex">
+                                <h3>Pet</h3>
+                                <button type="button" (click)="deletePet(i)" class="btn btn-danger btn-sm mx-3">Delete</button>
+                            </div>
+                            <app-editable-pet-input
+                                    [parentForm]="ownerFormGroup"
+                                    [arrayIndex]="i"
+                                    controlName="name"
+                                    label="Name: ">
+                            </app-editable-pet-input>
+
+                            <app-editable-pet-input
+                                    [parentForm]="ownerFormGroup"
+                                    [arrayIndex]="i"
+                                    controlName="birthDate"
+                                    label="Birth Date: ">
+                            </app-editable-pet-input>
+                            
+                            <app-editable-pet-select
+                                    [parentForm]="ownerFormGroup"
+                                    [arrayIndex]="i"
+                                    controlName="type"
+                                    label="Types: "
+                                    [types]="types">
+                            </app-editable-pet-select>
+
                             <table class="table">
                                 <tr>
                                     <th width="20%">Visit Date</th>
                                     <th>Description</th>
                                     <th width="20%">Actions</th>
                                 </tr>
-                                <tr *ngFor="let tempVisit of tempPet.visits; let j = index;">
-                                    <td>{{getFormattedDate(tempVisit.visitDate)}}</td>
-                                    <td>{{tempVisit.description}}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-success bg-success px-2 mr-2">Edit</button>
-                                        <button type="button" (click)="deleteVisit(tempPet,j)" class="btn btn-sm btn-danger bg-danger px-2 mx-2">
-                                            Delete
-                                        </button>
-                                    </td>
+                                <tr app-editable-visit-row
+                                        [parentForm]="ownerFormGroup"
+                                        [PetsIndex]="i"
+                                        [VisitsIndex]="j"
+                                        *ngFor="let tempVisit of petControl.get('visits').controls; let j = index;">
                                 </tr>
                             </table>
                         
-                        <div class="d-flex justify-content-center">
-                            <button type="button" (click)="addNewVisit(tempPet)" class="btn btn-sm btn-success">Add New Visit</button>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" (click)="addNewVisit(petControl)" class="btn btn-sm btn-success">Add New Visit</button>
+                            </div>
+                            <hr>
                         </div>
-                        <hr>
-                    </div>
-                    <button type="button" (click)="addNewPet()" class="btn btn-success">Add New Pet</button>
-                    <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-lg btn-success mx-3">Submit Changes</button>
-                        <button type="button" (click)="processUndo()" class="btn btn-lg btn-danger mx-3">Undo Changes</button>
-                    </div>
+                        <button type="button" (click)="addNewPet()" class="btn btn-success">Add New Pet</button>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-lg btn-success mx-3">Submit Changes</button>
+                            <button type="button" (click)="processCancel()" class="btn btn-lg btn-danger mx-3">Cancel Changes</button>
+                        </div>
+                    </form>
+                    
                 </div>
             </div>
             <button type="button" (click)="deleteOwner()" class="btn btn-danger my-3">Delete This Owner</button>

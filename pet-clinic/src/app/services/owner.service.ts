@@ -29,6 +29,11 @@ export class OwnerService {
     return this.httpClient.post<Owner>(url, owner);
   }
 
+  putOwner(owner: Owner, id: string): Observable<any>{
+    const url = `${this.baseUrl}/${id}`;
+    return this.httpClient.put<Owner>(url, owner);
+  }
+
   getOwner(id: string): Observable<Owner>{
     const url = `${this.baseUrl}/${id}`;
     return this.httpClient.get<Owner>(url);

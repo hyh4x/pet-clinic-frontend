@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditableComponent } from './editable.component';
+import { EditablePetInputComponent } from './editable-pet-input.component';
 
-describe('EditableComponent', () => {
-  let component: EditableComponent;
-  let fixture: ComponentFixture<EditableComponent>;
+describe('EditablePetInputComponent', () => {
+  let component: EditablePetInputComponent;
+  let fixture: ComponentFixture<EditablePetInputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditableComponent ]
+      declarations: [ EditablePetInputComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditableComponent);
+    fixture = TestBed.createComponent(EditablePetInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
