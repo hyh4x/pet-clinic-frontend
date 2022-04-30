@@ -8,6 +8,7 @@ import { OwnerService } from 'src/app/services/owner.service';
 import { ValidBirthDate } from 'src/app/validators/valid-birth-date';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { ValidPhone } from 'src/app/validators/valid-phone';
 
 @Component({
   selector: 'app-add-owner',
@@ -38,7 +39,7 @@ export class AddOwnerComponent implements OnInit {
       personal: this.formBuilder.group({
         firstName: new FormControl('',[Validators.required, Validators.minLength(2)]),
         lastName: new FormControl('',[Validators.required, Validators.minLength(2)]),
-        phoneNumber: new FormControl('',[Validators.required, Validators.pattern('[0-9]{10}')]),
+        phoneNumber: new FormControl('',[Validators.required, ValidPhone.validPhone]),
         email: new FormControl('',[Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
         city: new FormControl('',[Validators.required, Validators.minLength(2)]),
         address: new FormControl('',[Validators.required, Validators.minLength(2)])
@@ -74,6 +75,7 @@ export class AddOwnerComponent implements OnInit {
     }
 
     let owner: Owner = this.ownerFormGroup.get('personal')?.value;
+    owner.phoneNumber = owner.phoneNumber.replace(/\D+/g,'');
     owner.pets = [];
 
     for(let tempFormGroup of this.pets.controls){

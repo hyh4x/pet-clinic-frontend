@@ -9,6 +9,7 @@ import { PetTypesService } from 'src/app/services/pet-types.service';
 import { Visit } from 'src/app/common/visit';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidBirthDate } from 'src/app/validators/valid-birth-date';
+import { ValidPhone } from 'src/app/validators/valid-phone';
 
 @Component({
   selector: 'app-owner-info',
@@ -61,7 +62,7 @@ export class OwnerInfoComponent implements OnInit {
         id: this.owner?.id,
         firstName: new FormControl(this.owner?.firstName,[Validators.required, Validators.minLength(2)]),
         lastName: new FormControl(this.owner?.lastName,[Validators.required, Validators.minLength(2)]),
-        phoneNumber: new FormControl(this.owner?.phoneNumber,[Validators.required, Validators.pattern('[0-9]{10}')]),
+        phoneNumber: new FormControl(this.owner?.phoneNumber,[Validators.required, ValidPhone.validPhone]),
         email: new FormControl(this.owner?.email,[Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
         city: new FormControl(this.owner?.city,[Validators.required, Validators.minLength(2)]),
         address: new FormControl(this.owner?.address,[Validators.required, Validators.minLength(2)])
@@ -109,6 +110,7 @@ export class OwnerInfoComponent implements OnInit {
     }
 
     let owner: Owner = this.ownerFormGroup.get('personal')?.value;
+    owner.phoneNumber=owner.phoneNumber.replace(/\D+/g,'');
     owner.pets = [];
 
     for(let petFormGroup of this.pets.controls){
