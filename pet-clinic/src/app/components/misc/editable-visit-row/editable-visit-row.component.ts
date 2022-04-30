@@ -33,6 +33,6 @@ export class EditableVisitRowComponent implements OnInit {
   }
 
   get visits(){return this.parentForm.get(`pets.${this.PetsIndex}.visits`) as FormArray;}
-  get visitDate(){return this.parentForm.get(`pets.${this.PetsIndex}.visits.${this.VisitsIndex}.visitDate`)?.value;}
-  get description(){return this.parentForm.get(`pets.${this.PetsIndex}.visits.${this.VisitsIndex}.description`)?.value;}
+  get visitDate(){return this.parentForm.get(`pets.${this.PetsIndex}.visits.${this.VisitsIndex}.visitDate`);}
+  get description(){return this.parentForm.get(`pets.${this.PetsIndex}.visits.${this.VisitsIndex}.description`);}
 }

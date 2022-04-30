@@ -8,7 +8,7 @@
                 <h2>Owner info</h2>
                 <div class="container-fluid">
     
-                    <form [formGroup]="ownerFormGroup" (ngSubmit)="onSubmit();">
+                    <form [formGroup]="ownerFormGroup">
 
                         <app-editable-owner-input 
                                 [parentForm]="ownerFormGroup"
@@ -16,11 +16,29 @@
                                 label="First Name:">
                         </app-editable-owner-input>
 
+                        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+                            <div *ngIf="firstName.errors.required">
+                                First Name is required
+                            </div>
+                            <div *ngIf="firstName.errors.minlength">
+                                First Name must be at least 2 characters
+                            </div>
+                        </div>
+
                         <app-editable-owner-input 
                                 [parentForm]="ownerFormGroup"
                                 controlName="lastName"
                                 label="Last Name:">
                         </app-editable-owner-input>
+
+                        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
+                            <div *ngIf="lastName.errors.required">
+                                Last Name is required
+                            </div>
+                            <div *ngIf="lastName.errors.minlength">
+                                Last Name must be at least 2 characters
+                            </div>
+                        </div>
 
                         <app-editable-owner-input 
                                 [parentForm]="ownerFormGroup"
@@ -28,11 +46,29 @@
                                 label="Phone Number:">
                         </app-editable-owner-input>
 
+                        <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="alert alert-danger">
+                            <div *ngIf="phoneNumber.errors.required">
+                                Phone Number is required
+                            </div>
+                            <div *ngIf="phoneNumber.errors.pattern">
+                                Phone Number must be 10 digits
+                            </div>
+                        </div>
+
                         <app-editable-owner-input 
                                 [parentForm]="ownerFormGroup"
                                 controlName="email"
                                 label="Email:">
                         </app-editable-owner-input>
+
+                        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                            <div *ngIf="email.errors.required">
+                                Email is required
+                            </div>
+                            <div *ngIf="email.errors.pattern">
+                                Invalid email format
+                            </div>
+                        </div>
 
                         <app-editable-owner-input 
                                 [parentForm]="ownerFormGroup"
@@ -40,11 +76,30 @@
                                 label="City:">
                         </app-editable-owner-input>
 
+                        <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
+                            <div *ngIf="city.errors.required">
+                                City is required
+                            </div>
+                            <div *ngIf="city.errors.minlength">
+                                City must be at least 2 characters
+                            </div>
+                        </div>
+
                         <app-editable-owner-input 
                                 [parentForm]="ownerFormGroup"
                                 controlName="address"
                                 label="Address:">
                         </app-editable-owner-input>
+
+                        <div *ngIf="address.invalid && (address.dirty || address.touched)" class="alert alert-danger">
+                            <div *ngIf="address.errors.required">
+                                Address is required
+                            </div>
+                            <div *ngIf="address.errors.minlength">
+                                Address must be at least 2 characters
+                            </div>
+                        </div>
+
                         <hr>
 
                         <!-- PETS -->
@@ -55,6 +110,7 @@
                                 <h3>Pet</h3>
                                 <button type="button" (click)="deletePet(i)" class="btn btn-danger btn-sm mx-3">Delete</button>
                             </div>
+
                             <app-editable-pet-input
                                     [parentForm]="ownerFormGroup"
                                     [arrayIndex]="i"
@@ -62,12 +118,35 @@
                                     label="Name: ">
                             </app-editable-pet-input>
 
+                            <div *ngIf="petControl.get('name').invalid && 
+                                (petControl.get('name').dirty || petControl.get('name').touched)" class="alert alert-danger">
+                                <div *ngIf="petControl.get('name').errors.required">
+                                    Pet Name is required
+                                </div>
+                                <div *ngIf="petControl.get('name').errors.minlength">
+                                    Pet Name must be at least 2 characters
+                                </div>
+                            </div>
+
                             <app-editable-pet-input
                                     [parentForm]="ownerFormGroup"
                                     [arrayIndex]="i"
                                     controlName="birthDate"
                                     label="Birth Date: ">
                             </app-editable-pet-input>
+
+                            <div *ngIf="petControl.get('birthDate').invalid && 
+                                (petControl.get('birthDate').dirty || petControl.get('birthDate').touched)" class="alert alert-danger">
+                                <div *ngIf="petControl.get('birthDate').errors.required">
+                                    Pet Birth Date is required
+                                </div>
+                                <div *ngIf="petControl.get('birthDate').errors.pattern">
+                                    Invalid Birth Date format: dd.mm.yyyy
+                                </div>
+                                <div *ngIf="petControl.get('birthDate').errors.validBirthDate">
+                                    Invalid Birth Date
+                                </div>
+                            </div>
                             
                             <app-editable-pet-select
                                     [parentForm]="ownerFormGroup"
@@ -76,6 +155,13 @@
                                     label="Types: "
                                     [types]="types">
                             </app-editable-pet-select>
+
+                            <div *ngIf="petControl.get('type').invalid && 
+                                (petControl.get('type').dirty || petControl.get('type').touched)" class="alert alert-danger">
+                                <div *ngIf="petControl.get('type').errors.required">
+                                    Pet Type is required
+                                </div>
+                            </div>
 
                             <table class="table">
                                 <tr>
@@ -90,6 +176,21 @@
                                         *ngFor="let tempVisit of petControl.get('visits').controls; let j = index;">
                                 </tr>
                             </table>
+
+                            <div *ngIf="petControl.get('visits').invalid" (click)="descriptionRequired(petControl)" class="alert alert-danger">
+                                <div *ngIf="descriptionRequired(petControl)">
+                                    Visit Description is required
+                                </div>
+                                <div *ngIf="visitDateRequired(petControl)">
+                                    Visit Date is required
+                                </div>
+                                <div *ngIf="visitDatePattern(petControl)">
+                                    Invalid Visit Date format: dd.mm.yyyy
+                                </div>
+                                <div *ngIf="visitDateValid(petControl)">
+                                    Invalid Visit Date
+                                </div>
+                            </div>
                         
                             <div class="d-flex justify-content-center">
                                 <button type="button" (click)="addNewVisit(petControl)" class="btn btn-sm btn-success">Add New Visit</button>
@@ -98,8 +199,8 @@
                         </div>
                         <button type="button" (click)="addNewPet()" class="btn btn-success">Add New Pet</button>
                         <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-lg btn-success mx-3">Submit Changes</button>
-                            <button type="button" (click)="processCancel()" class="btn btn-lg btn-danger mx-3">Cancel Changes</button>
+                            <button type="button" (click)="onSubmit()" class="btn btn-lg btn-success mx-3">Submit Changes</button>
+                            <button type="button" (click)="processUndo()" class="btn btn-lg btn-danger mx-3">Undo Changes</button>
                         </div>
                     </form>
                     

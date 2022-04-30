@@ -1,11 +1,11 @@
-<td>
+<td [ngClass]="{'alert-cell': visitDate?.invalid && (visitDate?.dirty || visitDate?.touched)}">
     <div [formGroup]="parentForm">
         <div formArrayName="pets">
             <div [formGroupName]="PetsIndex">
                 <div formArrayName="visits">
                     <div [formGroupName]="VisitsIndex">
                         <div *ngIf="!isEditable">
-                            {{visitDate}}
+                            {{visitDate.value}}
                         </div>
                         <div *ngIf="isEditable" class="input-space">
                             <input type="text" (keyup.enter)="processChanges()" formControlName="visitDate">
@@ -16,14 +16,14 @@
         </div>
     </div>
 </td>
-<td>
+<td [ngClass]="{'alert-cell': description?.invalid && (description?.dirty || description?.touched)}">
     <div [formGroup]="parentForm">
         <div formArrayName="pets">
             <div [formGroupName]="PetsIndex">
                 <div formArrayName="visits">
                     <div [formGroupName]="VisitsIndex">
                         <div *ngIf="!isEditable">
-                            {{description}}
+                            {{description.value}}
                         </div>
                         <div *ngIf="isEditable" class="input-space">
                             <input type="text" (keyup.enter)="processChanges()" formControlName="description">

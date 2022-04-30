@@ -175,9 +175,9 @@ export class OwnerInfoComponent implements OnInit {
     }
   }
 
-  processCancel(){
+  processUndo(){
     if(confirm('All changes will be lost. Proceed?')){
-      this.getOwner();
+      this.createFormGroups();
     }
   }
 
@@ -185,5 +185,37 @@ export class OwnerInfoComponent implements OnInit {
     return moment(date).format('DD.MM.YYYY');
   }
 
+  descriptionRequired(petControl: FormGroup): boolean{
+    const visitsArray = petControl.get('visits') as FormArray;
+    return visitsArray.controls.find(el => el.get('description')!.errors!=null 
+                                    && el.get('description')!.errors!.hasOwnProperty('required')) != null;
+  }
+
+  visitDateRequired(petControl: FormGroup): boolean{
+    const visitsArray = petControl.get('visits') as FormArray;
+    return visitsArray.controls.find(el => el.get('visitDate')!.errors!=null 
+                                    && el.get('visitDate')!.errors!.hasOwnProperty('required')) != null;
+  }
+
+  visitDatePattern(petControl: FormGroup): boolean{
+    const visitsArray = petControl.get('visits') as FormArray;
+    return visitsArray.controls.find(el => el.get('visitDate')!.errors!=null 
+                                    && el.get('visitDate')!.errors!.hasOwnProperty('pattern')) != null;
+  }
+
+  visitDateValid(petControl: FormGroup): boolean{
+    const visitsArray = petControl.get('visits') as FormArray;
+    return visitsArray.controls.find(el => el.get('visitDate')!.errors!=null 
+                                    && el.get('visitDate')!.errors!.hasOwnProperty('validBirthDate')) != null;
+  }
+
+
+
   get pets() {return this.ownerFormGroup.get('pets') as FormArray;}
+  get firstName() {return this.ownerFormGroup.get('personal.firstName');}
+  get lastName() {return this.ownerFormGroup.get('personal.lastName');}
+  get phoneNumber() {return this.ownerFormGroup.get('personal.phoneNumber');}
+  get email() {return this.ownerFormGroup.get('personal.email');}
+  get city() {return this.ownerFormGroup.get('personal.city');}
+  get address() {return this.ownerFormGroup.get('personal.address');}
 }

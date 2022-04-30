@@ -75,6 +75,10 @@
     white-space: nowrap;
 }
 
+.alert-cell{
+    background:#f55664;
+}
+
 .actions{
     display:-webkit-box;
     display:-webkit-flex;
