@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { OwnerSlim } from 'src/app/common/owner-slim';
 import { OwnerService } from 'src/app/services/owner.service';
@@ -8,7 +8,7 @@ import { OwnerService } from 'src/app/services/owner.service';
   templateUrl: './owners-list.component.html',
   styleUrls: ['./owners-list.component.css']
 })
-export class OwnersListComponent implements OnInit {
+export class OwnersListComponent implements OnInit, OnDestroy {
 
   owners: OwnerSlim[] = [];
   searchMode: boolean = false;
