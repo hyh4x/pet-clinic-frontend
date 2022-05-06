@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { OwnersListComponent } from './components/owners-list/owners-list.component';
 import { HomeComponent } from './components/home/home.component';
@@ -15,6 +15,7 @@ import { EditablePetInputComponent } from './components/misc/editable-pet-input/
 import { EditablePetSelectComponent } from './components/misc/editable-pet-select/editable-pet-select.component';
 import { EditableVisitRowComponent } from './components/misc/editable-visit-row/editable-visit-row.component';
 import { PhonePipe } from './pipes/phone.pipe';
+import { XsrfInterceptorService } from './services/xsrf-interceptor.service';
 
 
 const routes: Routes = [
@@ -47,9 +48,10 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientXsrfModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: XsrfInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
