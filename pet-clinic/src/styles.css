@@ -175,6 +175,7 @@
 .nav-bar li a:hover {
     background-color: #135c0a;
     color: white;
+    cursor: pointer;
   }
 
   .nav-bar li a:visited {

@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  resourceApiUrl: "https://localhost:8080/api"
+  resourceApiUrl: "https://localhost:8444/api",
+  keycloakUrl: "https://localhost:8443",
+  hostUrl: "https://localhost:4200"
 };
 
 /*

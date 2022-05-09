@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -16,15 +16,19 @@ import { EditablePetSelectComponent } from './components/misc/editable-pet-selec
 import { EditableVisitRowComponent } from './components/misc/editable-visit-row/editable-visit-row.component';
 import { PhonePipe } from './pipes/phone.pipe';
 import { XsrfInterceptorService } from './services/xsrf-interceptor.service';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { initializeKeycloak } from './init/keycloak-init.factory';
+import { AuthGuard } from './guards/auth.guard';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 const routes: Routes = [
-  {path: 'owners/:id', component: OwnerInfoComponent},
-  {path: 'owners', component: OwnersListComponent},
+  {path: 'owners/:id', component: OwnerInfoComponent, canActivate: [AuthGuard]},
+  {path: 'owners', component: OwnersListComponent, canActivate: [AuthGuard]},
   {path: 'home', component: HomeComponent},
-  {path: 'vets', component: VetsComponent},
-  {path: 'add-owner', component: AddOwnerComponent},
-  {path: 'search/:keyword', component: OwnersListComponent},
+  {path: 'vets', component: VetsComponent, canActivate: [AuthGuard]},
+  {path: 'add-owner', component: AddOwnerComponent, canActivate: [AuthGuard]},
+  {path: 'search/:keyword', component: OwnersListComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
@@ -42,6 +46,7 @@ const routes: Routes = [
     EditablePetSelectComponent,
     EditableVisitRowComponent,
     PhonePipe,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,9 +54,11 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     FormsModule,
-    HttpClientXsrfModule
+    HttpClientXsrfModule,
+    KeycloakAngularModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: XsrfInterceptorService, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: XsrfInterceptorService, multi: true},
+              {provide: APP_INITIALIZER, useFactory: initializeKeycloak, multi: true, deps: [KeycloakService]}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
