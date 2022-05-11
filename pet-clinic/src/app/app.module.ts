@@ -2,7 +2,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { OwnersListComponent } from './components/owners-list/owners-list.component';
 import { HomeComponent } from './components/home/home.component';
@@ -15,7 +15,6 @@ import { EditablePetInputComponent } from './components/misc/editable-pet-input/
 import { EditablePetSelectComponent } from './components/misc/editable-pet-select/editable-pet-select.component';
 import { EditableVisitRowComponent } from './components/misc/editable-visit-row/editable-visit-row.component';
 import { PhonePipe } from './pipes/phone.pipe';
-import { XsrfInterceptorService } from './services/xsrf-interceptor.service';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from './init/keycloak-init.factory';
 import { AuthGuard } from './guards/auth.guard';
@@ -54,11 +53,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     FormsModule,
-    HttpClientXsrfModule,
     KeycloakAngularModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: XsrfInterceptorService, multi: true},
-              {provide: APP_INITIALIZER, useFactory: initializeKeycloak, multi: true, deps: [KeycloakService]}],
+  providers: [{provide: APP_INITIALIZER, useFactory: initializeKeycloak, multi: true, deps: [KeycloakService]}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
