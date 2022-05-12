@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: 'frontend:latest'
+    build: ./pet-clinic
+    ports:
+      - 4200:443
+    volumes:
+      - ./pet-clinic/certs:/etc/nginx/certs
