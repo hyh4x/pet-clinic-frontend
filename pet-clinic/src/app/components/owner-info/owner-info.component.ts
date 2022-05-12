@@ -103,7 +103,7 @@ export class OwnerInfoComponent implements OnInit {
     array.push(visitForm);
   }
 
-  onSubmit(){
+  async onSubmit(){
     if(this.ownerFormGroup.invalid){
       this.ownerFormGroup.markAllAsTouched();
       return;
@@ -128,8 +128,8 @@ export class OwnerInfoComponent implements OnInit {
       owner.pets.push(pet);
     }
 
-    console.log(owner);
-    this.ownerService.putOwner(owner, this.ownerId).subscribe();
+    await new Promise<any>(resolve => this.ownerService.putOwner(owner, this.ownerId).subscribe(res => resolve(res)));
+    this.router.navigateByUrl('/owners');
   }
 
   addNewPet() {
@@ -180,6 +180,7 @@ export class OwnerInfoComponent implements OnInit {
   processUndo(){
     if(confirm('All changes will be lost. Proceed?')){
       this.createFormGroups();
+      this.router.navigateByUrl('/owners');
     }
   }
 

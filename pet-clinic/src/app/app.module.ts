@@ -19,15 +19,16 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from './init/keycloak-init.factory';
 import { AuthGuard } from './guards/auth.guard';
 import { LogoutComponent } from './components/logout/logout.component';
+import { OwnersResolver } from './resolvers/owners.resolver'
 
 
 const routes: Routes = [
   {path: 'owners/:id', component: OwnerInfoComponent, canActivate: [AuthGuard]},
-  {path: 'owners', component: OwnersListComponent, canActivate: [AuthGuard]},
+  {path: 'owners', component: OwnersListComponent, canActivate: [AuthGuard], resolve: { routeResolver: OwnersResolver }},
   {path: 'home', component: HomeComponent},
   {path: 'vets', component: VetsComponent, canActivate: [AuthGuard]},
   {path: 'add-owner', component: AddOwnerComponent, canActivate: [AuthGuard]},
-  {path: 'search/:keyword', component: OwnersListComponent, canActivate: [AuthGuard]},
+  {path: 'search/:keyword', component: OwnersListComponent, canActivate: [AuthGuard], resolve: { routeResolver: OwnersResolver }},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
@@ -55,7 +56,7 @@ const routes: Routes = [
     FormsModule,
     KeycloakAngularModule
   ],
-  providers: [{provide: APP_INITIALIZER, useFactory: initializeKeycloak, multi: true, deps: [KeycloakService]}],
+  providers: [{provide: APP_INITIALIZER, useFactory: initializeKeycloak, multi: true, deps: [KeycloakService]}, OwnersResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
