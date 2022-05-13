@@ -14,14 +14,14 @@ export class OwnerService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getOwnersList(): Observable<OwnerSlim[]> {
-    const url = this.baseUrl;
-    return this.httpClient.get<OwnerSlim[]>(url);
+  getOwnersList(page: number, pageSize: number): Observable<GetResponseOwners> {
+    const url = `${this.baseUrl}?page=${page}&size=${pageSize}`;
+    return this.httpClient.get<GetResponseOwners>(url);
   }
 
-  searchOwnersList(keyword: string): Observable<OwnerSlim[]> {
-    const url = `${this.baseUrl}/search/findOwnersByFirstNameOrLastName?keyword=${keyword}`;
-    return this.httpClient.get<OwnerSlim[]>(url);
+  searchOwnersList(keyword: string, page: number, pageSize: number): Observable<GetResponseOwners> {
+    const url = `${this.baseUrl}/search/findOwnersByFirstNameOrLastName?keyword=${keyword}&page=${page}&size=${pageSize}`;
+    return this.httpClient.get<GetResponseOwners>(url);
   }
 
   postOwner(owner: Owner): Observable<any>{
@@ -42,5 +42,17 @@ export class OwnerService {
   deleteOwner(id: string): Observable<any>{
     const url = `${this.baseUrl}/${id}`;
     return this.httpClient.delete(url);
+  }
+}
+
+interface GetResponseOwners {
+  _embedded: {
+    ownerSlimList: OwnerSlim []
+  },
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
   }
 }
