@@ -63,8 +63,8 @@ export class OwnersListComponent implements OnInit, OnDestroy {
   }
 
   processResponse() {
-    return (data: { _embedded: { ownerSlimList: OwnerSlim[] }, page: { number: number; size: number; totalElements: number; }; }) => {
-      this.owners = data._embedded['ownerSlimList'];
+    return (data: { _embedded: { owners: OwnerSlim[] }, page: { number: number; size: number; totalElements: number; }; }) => {
+      this.owners = data._embedded['owners'];
       this.page = data.page.number+1;
       this.pageSize = data.page.size;
       this.totalElements = data.page.totalElements;

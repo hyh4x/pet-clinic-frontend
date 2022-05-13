@@ -47,7 +47,7 @@ export class OwnerService {
 
 interface GetResponseOwners {
   _embedded: {
-    ownerSlimList: OwnerSlim []
+    owners: OwnerSlim []
   },
   page: {
     size: number,
