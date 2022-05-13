@@ -14,13 +14,13 @@ export class OwnerService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getOwnersList(): Observable<GetResponseOwners> {
-    const url = `${this.baseUrl}?page=0&size=20`;
+  getOwnersList(page: number, pageSize: number): Observable<GetResponseOwners> {
+    const url = `${this.baseUrl}?page=${page}&size=${pageSize}`;
     return this.httpClient.get<GetResponseOwners>(url);
   }
 
-  searchOwnersList(keyword: string): Observable<GetResponseOwners> {
-    const url = `${this.baseUrl}/search/findOwnersByFirstNameOrLastName?keyword=${keyword}&page=0&size=20`;
+  searchOwnersList(keyword: string, page: number, pageSize: number): Observable<GetResponseOwners> {
+    const url = `${this.baseUrl}/search/findOwnersByFirstNameOrLastName?keyword=${keyword}&page=${page}&size=${pageSize}`;
     return this.httpClient.get<GetResponseOwners>(url);
   }
 
