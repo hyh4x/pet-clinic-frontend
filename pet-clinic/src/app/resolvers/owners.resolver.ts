@@ -11,11 +11,11 @@ import { OwnerService } from '../services/owner.service'
 @Injectable({
   providedIn: 'root'
 })
-export class OwnersResolver implements Resolve<Observable<OwnerSlim[]>> {
+export class OwnersResolver implements Resolve<Observable<GetResponseOwners>> {
 
   constructor(private ownerService: OwnerService){}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<OwnerSlim[]> {
+  resolve(route: ActivatedRouteSnapshot): Observable<GetResponseOwners> {
     
     const searchMode = route.paramMap.has('keyword');
 
@@ -28,12 +28,24 @@ export class OwnersResolver implements Resolve<Observable<OwnerSlim[]>> {
    
   }
   
-  handleSearch(route: ActivatedRouteSnapshot): Observable<OwnerSlim[]> {
+  handleSearch(route: ActivatedRouteSnapshot): Observable<GetResponseOwners> {
     const keyword = route.paramMap.get('keyword')!;
     return this.ownerService.searchOwnersList(keyword);
   }
 
-  handleListAll(): Observable<OwnerSlim[]> {
+  handleListAll(): Observable<GetResponseOwners> {
     return this.ownerService.getOwnersList();
+  }
+}
+
+interface GetResponseOwners {
+  _embedded: {
+    ownerSlimList: OwnerSlim []
+  },
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
   }
 }
