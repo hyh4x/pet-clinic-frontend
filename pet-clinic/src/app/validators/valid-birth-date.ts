@@ -5,9 +5,9 @@ export class ValidBirthDate {
 
     static validBirthDate(control: FormControl): ValidationErrors | null {
 
-        const checkDate = moment(control.value, 'DD/MM/YYYY');
+        const checkDate = moment.utc(control.value, 'DD/MM/YYYY');
 
-        if(!checkDate.isValid() || checkDate > moment()) {
+        if(!checkDate.isValid() || checkDate > moment.utc()) {
             return {'validBirthDate': true};
         }
         else {

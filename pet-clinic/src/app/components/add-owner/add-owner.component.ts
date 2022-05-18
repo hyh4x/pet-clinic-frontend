@@ -80,7 +80,7 @@ export class AddOwnerComponent implements OnInit {
 
     for(let tempFormGroup of this.pets.controls){
       let pet: Pet = tempFormGroup.value;
-      pet.birthDate = moment(tempFormGroup.get('birthDate')?.value,'DD/MM/YYYY').toDate();
+      pet.birthDate = moment.utc(tempFormGroup.get('birthDate')?.value,'DD/MM/YYYY').toDate();
       owner.pets.push(pet);
     }
 

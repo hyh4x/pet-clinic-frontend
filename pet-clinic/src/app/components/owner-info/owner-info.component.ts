@@ -115,13 +115,13 @@ export class OwnerInfoComponent implements OnInit {
 
     for(let petFormGroup of this.pets.controls){
       let pet: Pet = petFormGroup.value;
-      pet.birthDate = moment(pet.birthDate,'DD/MM/YYYY').toDate();
+      pet.birthDate = moment.utc(pet.birthDate,'DD/MM/YYYY').toDate();
       pet.visits = [];
       let visits = petFormGroup.get('visits') as FormArray;
 
       for(let visitFormGroup of visits.controls){
         let visit: Visit = visitFormGroup.value;
-        visit.visitDate = moment(visit.visitDate, 'DD/MM/YYYY').toDate();
+        visit.visitDate = moment.utc(visit.visitDate, 'DD/MM/YYYY').toDate();
         pet.visits.push(visit);
       }
 
@@ -185,7 +185,7 @@ export class OwnerInfoComponent implements OnInit {
   }
 
   getFormattedDate(date: Date): string {
-    return moment(date).format('DD.MM.YYYY');
+    return moment.utc(date).format('DD.MM.YYYY');
   }
 
   descriptionRequired(petControl: FormGroup): boolean{

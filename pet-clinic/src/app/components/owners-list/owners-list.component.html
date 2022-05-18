@@ -26,7 +26,7 @@
             </tr>
         </table>
         <div class="d-flex justify-content-end align-items-center">
-            <p class="mx-3">Displaying {{pageSize}} Owners per page</p>
+            <p class="mx-3">Displaying {{totalElements}} Owners, {{pageSize}} per page</p>
             <ngb-pagination [(page)]="page"
                             [pageSize]="pageSize"
                             [collectionSize]="totalElements"
